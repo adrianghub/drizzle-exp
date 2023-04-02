@@ -1,5 +1,6 @@
 // db.ts
 import {
+  int,
   mysqlTable,
   serial,
   uniqueIndex,
@@ -12,5 +13,13 @@ export const countries = mysqlTable('countries', {
   name: varchar('name', { length: 256 }),
 }, (countries) => ({
   nameIndex: uniqueIndex('name_idx').on(countries.name),
+}));
+
+export const citizens = mysqlTable('citizens', {
+  id: serial('id').primaryKey(),
+  fullName: varchar('name', { length: 256 }),
+  countryCode: int('country_code'),
+}, (citizen) => ({
+  nameIndex: uniqueIndex('country_idx').on(citizen.countryCode),
 }));
 
